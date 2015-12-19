@@ -30,7 +30,7 @@ public class DoctorController {
                                @RequestParam(value = "pn", required = true, defaultValue = "") String pn,
                                @RequestParam(value = "surname", required = true, defaultValue = "") String surname,
                                @RequestParam(value = "PIN", required = true, defaultValue = "") String PIN){
-        Doctor doctor=new Doctor(name,surname,pn,phone,PIN);
+        Doctor doctor=new Doctor(name,surname,pn,phone,PIN  );
         try {
 
             doctorRepository.save(doctor);

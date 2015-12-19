@@ -33,7 +33,7 @@ public class Doctor {
     @Column
     private String PIN;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CallDoctors> callDoctorses;
 
