@@ -50,6 +50,9 @@ public class DoctorController {
 
 
 
+
+
+
     @RequestMapping("/sm")
     @ResponseBody
     public boolean sendMessage(String m){

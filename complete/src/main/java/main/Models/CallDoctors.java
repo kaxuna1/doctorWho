@@ -17,9 +17,34 @@ public class CallDoctors {
     @JoinColumn(name = "doctorId")
     private Doctor doctor;
 
+    @ManyToOne
+    @JoinColumn(name = "callId")
+    private Call call;
+
+    public CallDoctors(){
+
+    }
+
+    public CallDoctors(Doctor doctor,Call call){
+        this.doctor=doctor;
+        this.call=call;
+
+    }
 
 
+    public Doctor getDoctor() {
+        return doctor;
+    }
 
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
 
+    public Call getCall() {
+        return call;
+    }
 
+    public void setCall(Call call) {
+        this.call = call;
+    }
 }

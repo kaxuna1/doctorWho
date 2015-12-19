@@ -22,4 +22,10 @@ public class Call {
 
     @Column
     private Date date;
+
+    public Call(String x, String y) {
+        this.x = x;
+        this.y = y;
+        this.date=new Date();
+    }
 }

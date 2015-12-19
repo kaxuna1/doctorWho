@@ -31,7 +31,13 @@ public class Doctor {
     private String phone;
 
     @Column
-    private String PIN;
+    private String pin;
+
+
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Session> sessions;
+
 
     @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
     @JsonIgnore
@@ -44,8 +50,9 @@ public class Doctor {
         this.personalNumber = personalNumber;
         this.phone=phone;
         this.surname=surname;
-        this.PIN=PIN;
+        this.pin =PIN;
         this.callDoctorses=new ArrayList<CallDoctors>();
+        this.sessions=new ArrayList<Session>();
     }
     public Doctor(){
 
@@ -84,12 +91,12 @@ public class Doctor {
         this.surname = surname;
     }
 
-    public String getPIN() {
-        return PIN;
+    public String getPin() {
+        return pin;
     }
 
-    public void setPIN(String PIN) {
-        this.PIN = PIN;
+    public void setPin(String pin) {
+        this.pin = pin;
     }
 
     public List<CallDoctors> getCallDoctorses() {
@@ -98,5 +105,13 @@ public class Doctor {
 
     public void setCallDoctorses(List<CallDoctors> callDoctorses) {
         this.callDoctorses = callDoctorses;
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
     }
 }
