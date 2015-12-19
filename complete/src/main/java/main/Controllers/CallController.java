@@ -2,6 +2,8 @@ package main.Controllers;
 
 import main.Models.Call;
 import main.Models.CallDoctors;
+import main.Models.Doctor;
+import main.Models.Session;
 import main.Repositoris.CallDoctorsRepository;
 import main.Repositoris.CallRepository;
 import main.Repositoris.SessionRepository;
@@ -17,6 +19,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,8 +30,15 @@ import java.util.List;
 public class CallController {
     @RequestMapping("/getmycalls")
     @ResponseBody
-    public List<CallDoctors> getMyCalls(long sessionId){
-        return sessionRepository.findOne(sessionId).getUser().getCallDoctorses();
+    public List<Call> getMyCalls(long sessionId){
+
+        List<Call> calls=new ArrayList<Call>();
+        List<CallDoctors> callDoctorses= sessionRepository.findOne(sessionId).getUser().getCallDoctorses();
+
+        for (int i=0;i<callDoctorses.size();i++){
+            calls.add(callDoctorses.get(i).getCall());
+        }
+        return calls;
     }
 
     @RequestMapping("/getallcalls")
@@ -81,6 +92,33 @@ public class CallController {
 
 
         return true;
+    }
+
+
+
+    @RequestMapping("/getactivecalls")
+    @ResponseBody
+    public List<Call> getActiveCalls(){
+        Date date=new Date();
+        long k=date.getTime();
+        k=k-1000*1*60*30;
+        Date date1=new Date(k);
+
+        return callRepository.findByDate(date1);
+
+    }
+
+    @RequestMapping("/finishcall")
+    @ResponseBody
+    public boolean finishCall(long sessionId,long callId){
+        Session session= sessionRepository.findOne(sessionId);
+        Call call=callRepository.findOne(callId);
+        CallDoctors callDoctors=new CallDoctors(session.getUser(),call);
+        callDoctorsRepository.save(callDoctors);
+
+        return true;
+
+
     }
 
     @Autowired
